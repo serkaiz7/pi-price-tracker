@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Picoin Price Tracker</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Header with Logo and Dark Mode Toggle -->
+  <header>
+    <div class="logo">
+      <span>π</span>
+      <span>Picoin Price</span>
+    </div>
+    <button class="dark-mode-toggle">
+      <i class="fas fa-moon moon"></i>
+      <i class="fas fa-sun sun" style="display: none;"></i>
+    </button>
+  </header>
+
+  <!-- Main Price Tracker Section -->
+  <main>
+    <div class="price-tracker">
+      <label for="pi-input">Number of π:</label>
+      <input type="number" id="pi-input" value="1" min="0" step="0.0001">
+      <div class="output">
+        <span>USD: </span><span id="usd-output">0.00</span>
+      </div>
+      <div class="output">
+        <span>PHP: </span><span id="php-output">0.00</span>
+      </div>
+    </div>
+  </main>
+
+  <!-- Social Media Icons -->
+  <div class="social-media">
+    <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook-f"></i></a>
+    <a href="https://telegram.org" target="_blank"><i class="fab fa-telegram-plane"></i></a>
+    <a href="https://x.com" target="_blank"><i class="fab fa-twitter"></i></a>
+  </div>
+
+  <!-- Google Ads Area -->
+  <div class="google-ads">
+    <!-- Insert Google Ads code here -->
+  </div>
+
+  <!-- Footer with Modal -->
+  <footer>
+    <div id="pi-modal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <p>Pi Network is a social cryptocurrency, developer platform, and ecosystem designed for widespread accessibility and real-world utility. It enables users to mine and transact Pi using a mobile-friendly interface while supporting applications built within its blockchain ecosystem.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
