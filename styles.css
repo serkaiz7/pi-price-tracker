@@ -34,6 +34,12 @@ header {
   cursor: pointer;
 }
 
+.logo img {
+  width: 100px; /* Fixed width for the logo */
+  height: 40px; /* Fixed height for the logo */
+  object-fit: contain; /* Ensures the image scales properly without distortion */
+}
+
 .logo span:first-child {
   font-size: 36px;
   margin-right: 10px;
