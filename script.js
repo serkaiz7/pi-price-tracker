@@ -1,7 +1,19 @@
+// Currency list with codes
+const currencies = [
+  { code: "PHP", name: "Philippine Peso" },
+  { code: "KRW", name: "South Korean Won" },
+  { code: "NGN", name: "Nigerian Naira" },
+  { code: "JPY", name: "Japanese Yen" },
+  { code: "HKD", name: "Hong Kong Dollar" },
+  { code: "INR", name: "Indian Rupee" },
+  { code: "GBP", name: "British Pound" }
+];
+let selectedIndex = 0; // Default to PHP (index 0)
+
 // Fetch prices from CoinGecko API
 async function fetchPrices() {
   try {
-    const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=pi-network&vs_currencies=usd,php');
+    const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=pi-network&vs_currencies=usd,php,krw,ngn,jpy,hkd,inr,gbp');
     const data = await response.json();
     return data['pi-network'];
   } catch (error) {
@@ -10,26 +22,45 @@ async function fetchPrices() {
   }
 }
 
-// Update price displays based on input
+// Update price displays
 async function updatePrices() {
   const prices = await fetchPrices();
   if (prices) {
     const piAmount = parseFloat(document.getElementById('pi-input').value) || 0;
-    const usdValue = (piAmount * prices.usd).toFixed(2);
-    const phpValue = (piAmount * prices.php).toFixed(2);
-    document.getElementById('usd-output').textContent = usdValue;
-    document.getElementById('php-output').textContent = phpValue;
+    document.getElementById('usd-output').textContent = (piAmount * prices.usd).toFixed(2);
+    const selectedCurrency = currencies[selectedIndex].code.toLowerCase();
+    document.getElementById('selected-currency').textContent = `${currencies[selectedIndex].code}: `;
+    document.getElementById('selected-output').textContent = (piAmount * prices[selectedCurrency]).toFixed(2);
   }
 }
 
 // Initial price update
 updatePrices();
-
-// Auto-update every 5 seconds
 setInterval(updatePrices, 5000);
 
 // Update prices on input change
 document.getElementById('pi-input').addEventListener('input', updatePrices);
+
+// Search functionality
+document.getElementById('currency-search').addEventListener('input', (e) => {
+  const searchTerm = e.target.value.toLowerCase();
+  const match = currencies.findIndex(c => c.name.toLowerCase().includes(searchTerm) || c.code.toLowerCase().includes(searchTerm));
+  if (match !== -1) {
+    selectedIndex = match;
+    updatePrices();
+  }
+});
+
+// Up/Down button functionality
+document.getElementById('up-btn').addEventListener('click', () => {
+  selectedIndex = (selectedIndex - 1 + currencies.length) % currencies.length;
+  updatePrices();
+});
+
+document.getElementById('down-btn').addEventListener('click', () => {
+  selectedIndex = (selectedIndex + 1) % currencies.length;
+  updatePrices();
+});
 
 // Toggle dark mode
 const toggleButton = document.querySelector('.dark-mode-toggle');
@@ -63,7 +94,6 @@ closeBtn.addEventListener('click', () => {
   }, 500);
 });
 
-// Close modal when clicking outside
 window.addEventListener('click', (event) => {
   if (event.target === modal) {
     modal.classList.remove('show');
