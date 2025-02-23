@@ -70,15 +70,21 @@ header {
   width: 100px;
   padding: 5px;
   font-size: 16px;
+  border: 1px solid var(--text-color);
+  border-radius: 4px;
 }
 
 .output {
   margin-top: 20px;
   font-size: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
 }
 
-.fixed {
-  font-weight: bold; /* Emphasize USD as fixed */
+.output input[type="number"] {
+  width: 120px; /* Slightly wider for 6 decimal places */
 }
 
 .currency-selector {
