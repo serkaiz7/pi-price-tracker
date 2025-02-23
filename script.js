@@ -34,12 +34,12 @@ async function updatePrices(fromPi = true) {
     if (fromPi) {
       // Update USD and selected currency based on Pi input
       const piAmount = parseFloat(piInput.value) || 0;
-      usdInput.value = (piAmount * prices.usd).toFixed(6);
+      usdInput.value = (piAmount * prices.usd).toFixed(2); // Changed to 2 decimal places
       selectedOutput.textContent = (piAmount * prices[selectedCurrency]).toFixed(2);
     } else {
       // Update Pi and selected currency based on USD input
       const usdAmount = parseFloat(usdInput.value) || 0;
-      piInput.value = (usdAmount / prices.usd).toFixed(6);
+      piInput.value = (usdAmount / prices.usd).toFixed(6); // Pi remains at 6 decimals
       selectedOutput.textContent = (usdAmount / prices.usd * prices[selectedCurrency]).toFixed(2);
     }
   }
