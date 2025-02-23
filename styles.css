@@ -83,15 +83,63 @@ header {
   margin: 20px 0;
 }
 
-.social-media a {
-  font-size: 24px;
-  color: var(--text-color);
-  margin: 0 10px;
-  text-decoration: none;
+/* Donation Section Styles */
+.donation {
+  text-align: center;
+  margin: 20px 0;
 }
 
-.social-media a:hover {
-  color: #007bff;
+.donate-text {
+  font-size: 28px;
+  font-weight: bold;
+  color: #ff6f61; /* Coral color for artistic flair */
+  text-shadow: 0 0 10px #ff6f61, 0 0 20px #ff6f61, 0 0 30px #ff6f61; /* Glowing effect */
+  position: relative;
+  display: inline-block;
+}
+
+.donate-text::after {
+  content: "➜"; /* Animated arrow */
+  position: absolute;
+  right: -40px; /* Position arrow to the right */
+  font-size: 24px;
+  color: #ff6f61;
+  animation: arrowPulse 1.5s infinite; /* Animation for arrow */
+}
+
+.qr-code {
+  width: 150px; /* Fixed size for QR code */
+  height: 150px;
+  margin: 10px auto;
+  display: block;
+}
+
+.address {
+  font-size: 16px;
+  word-wrap: break-word; /* Ensures long addresses wrap */
+  color: var(--text-color);
+}
+
+/* Arrow Animation */
+@keyframes arrowPulse {
+  0% { transform: translateX(0); opacity: 1; }
+  50% { transform: translateX(10px); opacity: 0.5; }
+  100% { transform: translateX(0); opacity: 1; }
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  .qr-code {
+    width: 120px;
+    height: 120px;
+  }
+  .donate-text {
+    font-size: 24px;
+  }
+  .donate-text::after {
+    right: -30px;
+    font-size: 20px;
+  }
 }
 
 /* Google Ads Styles */
