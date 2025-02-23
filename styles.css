@@ -35,18 +35,15 @@ header {
 }
 
 .logo img {
-  width: 60px; /* Fixed width for the logo */
-  height: 40px; /* Fixed height for the logo */
-  object-fit: contain; /* Ensures the image scales properly without distortion */
+  width: 80px; /* Fixed smaller width for the logo */
+  height: 30px; /* Fixed smaller height for the logo */
+  object-fit: contain; /* Ensures the image scales properly */
+  margin-right: 10px; /* Space between logo and text */
 }
 
-.logo span:first-child {
-  font-size: 36px;
-  margin-right: 10px;
-}
-
-.logo span:last-child {
-  font-size: 24px;
+.logo span {
+  font-size: 24px; /* Size of the "Picoin Price" text */
+  font-weight: bold; /* Makes the text stand out */
 }
 
 .dark-mode-toggle {
