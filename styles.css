@@ -35,8 +35,8 @@ header {
 }
 
 .logo img {
-  width: 10px; /* Fixed width for the logo */
-  height: 10px; /* Fixed height for the logo */
+  width: 50px; /* Fixed width for the logo */
+  height: 40px; /* Fixed height for the logo */
   object-fit: contain; /* Ensures the image scales properly without distortion */
 }
 
