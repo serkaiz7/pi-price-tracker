@@ -35,15 +35,15 @@ header {
 }
 
 .logo img {
-  width: 80px; /* Fixed smaller width for the logo */
-  height: 30px; /* Fixed smaller height for the logo */
-  object-fit: contain; /* Ensures the image scales properly */
-  margin-right: 10px; /* Space between logo and text */
+  width: 80px;
+  height: 30px;
+  object-fit: contain;
+  margin-right: 10px;
 }
 
 .logo span {
-  font-size: 24px; /* Size of the "Picoin Price" text */
-  font-weight: bold; /* Makes the text stand out */
+  font-size: 24px;
+  font-weight: bold;
 }
 
 .dark-mode-toggle {
@@ -66,7 +66,7 @@ header {
   font-size: 18px;
 }
 
-.price-tracker input {
+.price-tracker input[type="number"] {
   width: 100px;
   padding: 5px;
   font-size: 16px;
@@ -77,10 +77,41 @@ header {
   font-size: 20px;
 }
 
-/* Social Media Styles */
-.social-media {
-  text-align: center;
+.fixed {
+  font-weight: bold; /* Emphasize USD as fixed */
+}
+
+.currency-selector {
   margin: 20px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+#currency-search {
+  padding: 5px;
+  width: 150px;
+  font-size: 16px;
+  border: 1px solid var(--text-color);
+  border-radius: 4px;
+}
+
+.controls {
+  display: flex;
+  flex-direction: column;
+}
+
+#up-btn, #down-btn {
+  background: none;
+  border: 1px solid var(--text-color);
+  cursor: pointer;
+  font-size: 16px;
+  padding: 2px 8px;
+}
+
+#up-btn:hover, #down-btn:hover {
+  background-color: #ddd;
 }
 
 /* Donation Section Styles */
@@ -92,26 +123,26 @@ header {
 .donate-text {
   font-size: 28px;
   font-weight: bold;
-  color: #ff6f61; /* Coral color for artistic flair */
-  text-shadow: 0 0 10px #ff6f61, 0 0 20px #ff6f61, 0 0 30px #ff6f61; /* Glowing effect */
+  color: #ff6f61;
+  text-shadow: 0 0 10px #ff6f61, 0 0 20px #ff6f61, 0 0 30px #ff6f61;
   position: relative;
   display: inline-block;
-  margin-bottom: 20px; /* Space for the arrow below */
+  margin-bottom: 20px;
 }
 
 .donate-text::after {
-  content: "↓"; /* Downward arrow */
+  content: "↓";
   position: absolute;
-  left: 50%; /* Center horizontally */
-  transform: translateX(-50%); /* Adjust for perfect centering */
-  top: 100%; /* Position below the text */
+  left: 50%;
+  transform: translateX(-50%);
+  top: 100%;
   font-size: 24px;
   color: #ff6f61;
-  animation: arrowPulse 1.5s infinite; /* Animation for arrow */
+  animation: arrowPulse 1.5s infinite;
 }
 
 .qr-code {
-  width: 150px; /* Fixed size for QR code */
+  width: 150px;
   height: 150px;
   margin: 10px auto;
   display: block;
@@ -119,7 +150,7 @@ header {
 
 .address {
   font-size: 16px;
-  word-wrap: break-word; /* Ensures long addresses wrap */
+  word-wrap: break-word;
   color: var(--text-color);
 }
 
@@ -128,20 +159,6 @@ header {
   0% { transform: translateX(-50%) translateY(0); opacity: 1; }
   50% { transform: translateX(-50%) translateY(10px); opacity: 0.5; }
   100% { transform: translateX(-50%) translateY(0); opacity: 1; }
-}
-
-/* Responsive Design */
-@media (max-width: 600px) {
-  .qr-code {
-    width: 120px;
-    height: 120px;
-  }
-  .donate-text {
-    font-size: 24px;
-  }
-  .donate-text::after {
-    font-size: 20px;
-  }
 }
 
 /* Google Ads Styles */
@@ -193,10 +210,20 @@ header {
 
 /* Responsive Design */
 @media (max-width: 600px) {
-  .price-tracker input {
+  .price-tracker input[type="number"] {
     width: 80%;
   }
-  .social-media a {
-    margin: 0 5px;
+  .qr-code {
+    width: 120px;
+    height: 120px;
+  }
+  .donate-text {
+    font-size: 24px;
+  }
+  .donate-text::after {
+    font-size: 20px;
+  }
+  #currency-search {
+    width: 120px;
   }
 }
