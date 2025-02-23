@@ -96,12 +96,15 @@ header {
   text-shadow: 0 0 10px #ff6f61, 0 0 20px #ff6f61, 0 0 30px #ff6f61; /* Glowing effect */
   position: relative;
   display: inline-block;
+  margin-bottom: 20px; /* Space for the arrow below */
 }
 
 .donate-text::after {
-  content: "➜"; /* Animated arrow */
+  content: "↓"; /* Downward arrow */
   position: absolute;
-  right: -40px; /* Position arrow to the right */
+  left: 50%; /* Center horizontally */
+  transform: translateX(-50%); /* Adjust for perfect centering */
+  top: 100%; /* Position below the text */
   font-size: 24px;
   color: #ff6f61;
   animation: arrowPulse 1.5s infinite; /* Animation for arrow */
@@ -122,9 +125,9 @@ header {
 
 /* Arrow Animation */
 @keyframes arrowPulse {
-  0% { transform: translateX(0); opacity: 1; }
-  50% { transform: translateX(10px); opacity: 0.5; }
-  100% { transform: translateX(0); opacity: 1; }
+  0% { transform: translateX(-50%) translateY(0); opacity: 1; }
+  50% { transform: translateX(-50%) translateY(10px); opacity: 0.5; }
+  100% { transform: translateX(-50%) translateY(0); opacity: 1; }
 }
 
 /* Responsive Design */
@@ -137,7 +140,6 @@ header {
     font-size: 24px;
   }
   .donate-text::after {
-    right: -30px;
     font-size: 20px;
   }
 }
