@@ -23,23 +23,37 @@ async function fetchPrices() {
 }
 
 // Update price displays
-async function updatePrices() {
+async function updatePrices(fromPi = true) {
   const prices = await fetchPrices();
   if (prices) {
-    const piAmount = parseFloat(document.getElementById('pi-input').value) || 0;
-    document.getElementById('usd-output').textContent = (piAmount * prices.usd).toFixed(2);
+    const piInput = document.getElementById('pi-input');
+    const usdInput = document.getElementById('usd-output');
+    const selectedOutput = document.getElementById('selected-output');
     const selectedCurrency = currencies[selectedIndex].code.toLowerCase();
-    document.getElementById('selected-currency').textContent = `${currencies[selectedIndex].code}: `;
-    document.getElementById('selected-output').textContent = (piAmount * prices[selectedCurrency]).toFixed(2);
+
+    if (fromPi) {
+      // Update USD and selected currency based on Pi input
+      const piAmount = parseFloat(piInput.value) || 0;
+      usdInput.value = (piAmount * prices.usd).toFixed(6);
+      selectedOutput.textContent = (piAmount * prices[selectedCurrency]).toFixed(2);
+    } else {
+      // Update Pi and selected currency based on USD input
+      const usdAmount = parseFloat(usdInput.value) || 0;
+      piInput.value = (usdAmount / prices.usd).toFixed(6);
+      selectedOutput.textContent = (usdAmount / prices.usd * prices[selectedCurrency]).toFixed(2);
+    }
   }
 }
 
 // Initial price update
 updatePrices();
-setInterval(updatePrices, 5000);
+setInterval(() => updatePrices(true), 5000); // Auto-update from Pi every 5 seconds
 
-// Update prices on input change
-document.getElementById('pi-input').addEventListener('input', updatePrices);
+// Update prices on Pi input change
+document.getElementById('pi-input').addEventListener('input', () => updatePrices(true));
+
+// Update prices on USD input change
+document.getElementById('usd-output').addEventListener('input', () => updatePrices(false));
 
 // Search functionality
 document.getElementById('currency-search').addEventListener('input', (e) => {
@@ -47,19 +61,22 @@ document.getElementById('currency-search').addEventListener('input', (e) => {
   const match = currencies.findIndex(c => c.name.toLowerCase().includes(searchTerm) || c.code.toLowerCase().includes(searchTerm));
   if (match !== -1) {
     selectedIndex = match;
-    updatePrices();
+    document.getElementById('selected-currency').textContent = `${currencies[selectedIndex].code}: `;
+    updatePrices(true);
   }
 });
 
 // Up/Down button functionality
 document.getElementById('up-btn').addEventListener('click', () => {
   selectedIndex = (selectedIndex - 1 + currencies.length) % currencies.length;
-  updatePrices();
+  document.getElementById('selected-currency').textContent = `${currencies[selectedIndex].code}: `;
+  updatePrices(true);
 });
 
 document.getElementById('down-btn').addEventListener('click', () => {
   selectedIndex = (selectedIndex + 1) % currencies.length;
-  updatePrices();
+  document.getElementById('selected-currency').textContent = `${currencies[selectedIndex].code}: `;
+  updatePrices(true);
 });
 
 // Toggle dark mode
