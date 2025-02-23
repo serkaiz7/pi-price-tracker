@@ -34,12 +34,12 @@ async function updatePrices(fromPi = true) {
     if (fromPi) {
       // Update USD and selected currency based on Pi input
       const piAmount = parseFloat(piInput.value) || 0;
-      usdInput.value = (piAmount * prices.usd).toFixed(2); // Changed to 2 decimal places
+      usdInput.value = (piAmount * prices.usd).toFixed(2);
       selectedOutput.textContent = (piAmount * prices[selectedCurrency]).toFixed(2);
     } else {
       // Update Pi and selected currency based on USD input
       const usdAmount = parseFloat(usdInput.value) || 0;
-      piInput.value = (usdAmount / prices.usd).toFixed(6); // Pi remains at 6 decimals
+      piInput.value = (usdAmount / prices.usd).toFixed(6);
       selectedOutput.textContent = (usdAmount / prices.usd * prices[selectedCurrency]).toFixed(2);
     }
   }
@@ -47,7 +47,7 @@ async function updatePrices(fromPi = true) {
 
 // Initial price update
 updatePrices();
-setInterval(() => updatePrices(true), 5000); // Auto-update from Pi every 5 seconds
+setInterval(() => updatePrices(true), 30000); // Auto-update from Pi every 30 seconds
 
 // Update prices on Pi input change
 document.getElementById('pi-input').addEventListener('input', () => updatePrices(true));
