@@ -1,4 +1,4 @@
-// Currency list with codes
+// Currency list with codes (added IDR, SGD, AED, SAR, QAR)
 const currencies = [
   { code: "PHP", name: "Philippine Peso" },
   { code: "KRW", name: "South Korean Won" },
@@ -6,14 +6,19 @@ const currencies = [
   { code: "JPY", name: "Japanese Yen" },
   { code: "HKD", name: "Hong Kong Dollar" },
   { code: "INR", name: "Indian Rupee" },
-  { code: "GBP", name: "British Pound" }
+  { code: "GBP", name: "British Pound" },
+  { code: "IDR", name: "Indonesian Rupiah" },
+  { code: "SGD", name: "Singapore Dollar" },
+  { code: "AED", name: "UAE Dirham" },
+  { code: "SAR", name: "Saudi Riyal" },
+  { code: "QAR", name: "Qatari Riyal" }
 ];
 let selectedIndex = 0; // Default to PHP (index 0)
 
 // Fetch prices from CoinGecko API
 async function fetchPrices() {
   try {
-    const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=pi-network&vs_currencies=usd,php,krw,ngn,jpy,hkd,inr,gbp');
+    const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=pi-network&vs_currencies=usd,php,krw,ngn,jpy,hkd,inr,gbp,idr,sgd,aed,sar,qar');
     const data = await response.json();
     return data['pi-network'];
   } catch (error) {
@@ -47,7 +52,7 @@ async function updatePrices(fromPi = true) {
 
 // Initial price update
 updatePrices();
-setInterval(() => updatePrices(true), 30000); // Auto-update from Pi every 30 seconds
+setInterval(() => updatePrices(true), 30000); // Auto-update every 30 seconds
 
 // Update prices on Pi input change
 document.getElementById('pi-input').addEventListener('input', () => updatePrices(true));
@@ -94,7 +99,7 @@ toggleButton.addEventListener('click', () => {
   }
 });
 
-// Handle modal display
+// Handle Pi info modal display
 const logo = document.querySelector('.logo');
 const modal = document.getElementById('pi-modal');
 const closeBtn = document.querySelector('.close');
@@ -117,5 +122,22 @@ window.addEventListener('click', (event) => {
     setTimeout(() => {
       modal.style.display = 'none';
     }, 500);
+  }
+});
+
+// Handle QR code enlarge on tap
+const qrCode = document.querySelector('.qr-code');
+const qrModal = document.getElementById('qr-modal');
+const qrCloseBtn = document.querySelector('.qr-close');
+qrCode.addEventListener('click', () => {
+  qrModal.style.display = 'block';
+});
+qrCloseBtn.addEventListener('click', () => {
+  qrModal.style.display = 'none';
+});
+
+window.addEventListener('click', (event) => {
+  if (event.target === qrModal) {
+    qrModal.style.display = 'none';
   }
 });
