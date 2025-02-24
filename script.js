@@ -1,4 +1,4 @@
-// Currency list with codes (added IDR, SGD, AED, SAR, QAR)
+// Currency list with codes (added THB and VND)
 const currencies = [
   { code: "PHP", name: "Philippine Peso" },
   { code: "KRW", name: "South Korean Won" },
@@ -11,14 +11,15 @@ const currencies = [
   { code: "SGD", name: "Singapore Dollar" },
   { code: "AED", name: "UAE Dirham" },
   { code: "SAR", name: "Saudi Riyal" },
-  { code: "QAR", name: "Qatari Riyal" }
+  { code: "THB", name: "Thai Baht" },        // Added Thailand Baht
+  { code: "VND", name: "Vietnamese Dong" }   // Added Vietnam Dong
 ];
-let selectedIndex = 0; // Default to PHP (index 0)
+let selectedIndex = 0; // Default to PHP
 
-// Fetch prices from CoinGecko API
+// Fetch current price from CoinGecko API
 async function fetchPrices() {
   try {
-    const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=pi-network&vs_currencies=usd,php,krw,ngn,jpy,hkd,inr,gbp,idr,sgd,aed,sar,qar');
+    const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=pi-network&vs_currencies=usd,php,krw,ngn,jpy,hkd,inr,gbp,idr,sgd,aed,sar,thb,vnd');
     const data = await response.json();
     return data['pi-network'];
   } catch (error) {
@@ -37,12 +38,10 @@ async function updatePrices(fromPi = true) {
     const selectedCurrency = currencies[selectedIndex].code.toLowerCase();
 
     if (fromPi) {
-      // Update USD and selected currency based on Pi input
       const piAmount = parseFloat(piInput.value) || 0;
       usdInput.value = (piAmount * prices.usd).toFixed(2);
       selectedOutput.textContent = (piAmount * prices[selectedCurrency]).toFixed(2);
     } else {
-      // Update Pi and selected currency based on USD input
       const usdAmount = parseFloat(usdInput.value) || 0;
       piInput.value = (usdAmount / prices.usd).toFixed(6);
       selectedOutput.textContent = (usdAmount / prices.usd * prices[selectedCurrency]).toFixed(2);
@@ -52,12 +51,10 @@ async function updatePrices(fromPi = true) {
 
 // Initial price update
 updatePrices();
-setInterval(() => updatePrices(true), 30000); // Auto-update every 30 seconds
+setInterval(() => updatePrices(true), 30000);
 
-// Update prices on Pi input change
+// Event listeners for price inputs
 document.getElementById('pi-input').addEventListener('input', () => updatePrices(true));
-
-// Update prices on USD input change
 document.getElementById('usd-output').addEventListener('input', () => updatePrices(false));
 
 // Search functionality
@@ -84,7 +81,7 @@ document.getElementById('down-btn').addEventListener('click', () => {
   updatePrices(true);
 });
 
-// Toggle dark mode
+// Dark mode toggle
 const toggleButton = document.querySelector('.dark-mode-toggle');
 const moonIcon = document.querySelector('.moon');
 const sunIcon = document.querySelector('.sun');
@@ -99,7 +96,7 @@ toggleButton.addEventListener('click', () => {
   }
 });
 
-// Handle Pi info modal display
+// Pi info modal
 const logo = document.querySelector('.logo');
 const modal = document.getElementById('pi-modal');
 const closeBtn = document.querySelector('.close');
@@ -115,7 +112,6 @@ closeBtn.addEventListener('click', () => {
     modal.style.display = 'none';
   }, 500);
 });
-
 window.addEventListener('click', (event) => {
   if (event.target === modal) {
     modal.classList.remove('show');
@@ -125,7 +121,7 @@ window.addEventListener('click', (event) => {
   }
 });
 
-// Handle QR code enlarge on tap
+// QR code enlarge on tap
 const qrCode = document.querySelector('.qr-code');
 const qrModal = document.getElementById('qr-modal');
 const qrCloseBtn = document.querySelector('.qr-close');
@@ -135,9 +131,83 @@ qrCode.addEventListener('click', () => {
 qrCloseBtn.addEventListener('click', () => {
   qrModal.style.display = 'none';
 });
-
 window.addEventListener('click', (event) => {
   if (event.target === qrModal) {
     qrModal.style.display = 'none';
   }
 });
+
+// Candlestick Chart Setup
+const ctx = document.getElementById('price-chart').getContext('2d');
+let chart;
+
+// Mock data function (replace with real API data if available)
+function generateMockData(timeframe) {
+  const now = new Date();
+  const data = [];
+  let basePrice = 1.5; // Mock starting price in USD
+  const timeStep = timeframe === '1h' ? 60 * 60 * 1000 : timeframe === '24h' ? 24 * 60 * 60 * 1000 : 30 * 24 * 60 * 60 * 1000;
+  const points = timeframe === '1h' ? 60 : timeframe === '24h' ? 24 : 30;
+
+  for (let i = points - 1; i >= 0; i--) {
+    const time = new Date(now - i * (timeStep / points));
+    const open = basePrice + Math.random() * 0.1 - 0.05;
+    const close = open + Math.random() * 0.1 - 0.05;
+    const high = Math.max(open, close) + Math.random() * 0.05;
+    const low = Math.min(open, close) - Math.random() * 0.05;
+    data.push({ t: time, o: open, h: high, l: low, c: close });
+    basePrice = close;
+  }
+  return data;
+}
+
+function updateChart(timeframe) {
+  const data = generateMockData(timeframe);
+  if (chart) chart.destroy();
+
+  chart = new Chart(ctx, {
+    type: 'candlestick',
+    data: {
+      datasets: [{
+        label: 'Pi Network Price (USD)',
+        data: data
+      }]
+    },
+    options: {
+      scales: {
+        x: {
+          type: 'time',
+          time: {
+            unit: timeframe === '1h' ? 'minute' : timeframe === '24h' ? 'hour' : 'day'
+          }
+        },
+        y: {
+          beginAtZero: false
+        }
+      }
+    }
+  });
+}
+
+// Toggle button functionality
+const buttons = {
+  '1h': document.getElementById('one-hour-btn'),
+  '24h': document.getElementById('one-day-btn'),
+  '1m': document.getElementById('one-month-btn')
+};
+
+function setActiveButton(timeframe) {
+  Object.values(buttons).forEach(btn => btn.classList.remove('active'));
+  buttons[timeframe].classList.add('active');
+}
+
+Object.keys(buttons).forEach(timeframe => {
+  buttons[timeframe].addEventListener('click', () => {
+    setActiveButton(timeframe);
+    updateChart(timeframe);
+  });
+});
+
+// Initial chart load
+updateChart('1h');
+setActiveButton('1h');
