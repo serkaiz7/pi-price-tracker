@@ -121,6 +121,37 @@ header {
   background-color: #ddd;
 }
 
+/* Chart Styles */
+.chart-container {
+  margin: 30px auto;
+  max-width: 800px;
+  padding: 0 20px;
+}
+
+.chart-toggle {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.toggle-btn {
+  background: #e0e0e0;
+  border: none;
+  padding: 5px 15px;
+  margin: 0 5px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.toggle-btn.active {
+  background: #ff6f61;
+  color: white;
+}
+
+#price-chart {
+  width: 100%;
+  height: 400px;
+}
+
 /* Donation Section Styles */
 .donation {
   text-align: center;
@@ -149,11 +180,11 @@ header {
 }
 
 .qr-code {
-  width: 75px; /* 2x smaller than original 150px */
+  width: 75px;
   height: 75px;
   margin: 10px auto;
   display: block;
-  cursor: pointer; /* Indicates it's tappable */
+  cursor: pointer;
 }
 
 .address {
@@ -218,11 +249,11 @@ header {
   margin: 10% auto;
   text-align: center;
   width: 80%;
-  max-width: 300px; /* Limits size on large screens */
+  max-width: 300px;
 }
 
 .enlarged-qr {
-  width: 300px; /* Larger for easy scanning */
+  width: 300px;
   height: 300px;
 }
 
@@ -272,5 +303,8 @@ header {
   }
   #currency-search {
     width: 120px;
+  }
+  .chart-container {
+    padding: 0 10px;
   }
 }
