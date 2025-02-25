@@ -1,4 +1,4 @@
-// Currency list with codes (added THB and VND)
+// Currency list with codes (includes THB and VND from previous request)
 const currencies = [
   { code: "PHP", name: "Philippine Peso" },
   { code: "KRW", name: "South Korean Won" },
@@ -11,8 +11,8 @@ const currencies = [
   { code: "SGD", name: "Singapore Dollar" },
   { code: "AED", name: "UAE Dirham" },
   { code: "SAR", name: "Saudi Riyal" },
-  { code: "THB", name: "Thai Baht" },        // Added Thailand Baht
-  { code: "VND", name: "Vietnamese Dong" }   // Added Vietnam Dong
+  { code: "THB", name: "Thai Baht" },
+  { code: "VND", name: "Vietnamese Dong" }
 ];
 let selectedIndex = 0; // Default to PHP
 
@@ -137,14 +137,10 @@ window.addEventListener('click', (event) => {
   }
 });
 
-// Candlestick Chart Setup
-const ctx = document.getElementById('price-chart').getContext('2d');
-let chart;
-
-// Mock data function (replace with real API data if available)
+// Candlestick Chart Setup with Plotly.js
 function generateMockData(timeframe) {
   const now = new Date();
-  const data = [];
+  const data = { x: [], open: [], high: [], low: [], close: [] };
   let basePrice = 1.5; // Mock starting price in USD
   const timeStep = timeframe === '1h' ? 60 * 60 * 1000 : timeframe === '24h' ? 24 * 60 * 60 * 1000 : 30 * 24 * 60 * 60 * 1000;
   const points = timeframe === '1h' ? 60 : timeframe === '24h' ? 24 : 30;
@@ -155,7 +151,11 @@ function generateMockData(timeframe) {
     const close = open + Math.random() * 0.1 - 0.05;
     const high = Math.max(open, close) + Math.random() * 0.05;
     const low = Math.min(open, close) - Math.random() * 0.05;
-    data.push({ t: time, o: open, h: high, l: low, c: close });
+    data.x.push(time);
+    data.open.push(open);
+    data.high.push(high);
+    data.low.push(low);
+    data.close.push(close);
     basePrice = close;
   }
   return data;
@@ -163,30 +163,30 @@ function generateMockData(timeframe) {
 
 function updateChart(timeframe) {
   const data = generateMockData(timeframe);
-  if (chart) chart.destroy();
-
-  chart = new Chart(ctx, {
+  const trace = {
+    x: data.x,
+    open: data.open,
+    high: data.high,
+    low: data.low,
+    close: data.close,
     type: 'candlestick',
-    data: {
-      datasets: [{
-        label: 'Pi Network Price (USD)',
-        data: data
-      }]
+    increasing: { line: { color: '#00cc00' } }, // Green for up
+    decreasing: { line: { color: '#ff0000' } }  // Red for down
+  };
+
+  const layout = {
+    title: 'Pi Network Price (USD)',
+    xaxis: {
+      type: 'date',
+      range: [data.x[0], data.x[data.x.length - 1]],
+      rangeslider: { visible: false }
     },
-    options: {
-      scales: {
-        x: {
-          type: 'time',
-          time: {
-            unit: timeframe === '1h' ? 'minute' : timeframe === '24h' ? 'hour' : 'day'
-          }
-        },
-        y: {
-          beginAtZero: false
-        }
-      }
-    }
-  });
+    yaxis: { title: 'Price (USD)' },
+    height: 400,
+    margin: { t: 50, b: 50, l: 50, r: 50 }
+  };
+
+  Plotly.newPlot('price-chart', [trace], layout);
 }
 
 // Toggle button functionality
