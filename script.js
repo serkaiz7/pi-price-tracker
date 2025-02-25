@@ -1,4 +1,4 @@
-// Currency list with codes (includes THB and VND from previous request)
+// Currency list with codes (includes THB and VND)
 const currencies = [
   { code: "PHP", name: "Philippine Peso" },
   { code: "KRW", name: "South Korean Won" },
@@ -137,56 +137,64 @@ window.addEventListener('click', (event) => {
   }
 });
 
-// Candlestick Chart Setup with Plotly.js
-function generateMockData(timeframe) {
-  const now = new Date();
-  const data = { x: [], open: [], high: [], low: [], close: [] };
-  let basePrice = 1.5; // Mock starting price in USD
-  const timeStep = timeframe === '1h' ? 60 * 60 * 1000 : timeframe === '24h' ? 24 * 60 * 60 * 1000 : 30 * 24 * 60 * 60 * 1000;
-  const points = timeframe === '1h' ? 60 : timeframe === '24h' ? 24 : 30;
+// Line Graph Setup with Chart.js using CoinGecko historical data
+const ctx = document.getElementById('price-chart').getContext('2d');
+let chart;
 
-  for (let i = points - 1; i >= 0; i--) {
-    const time = new Date(now - i * (timeStep / points));
-    const open = basePrice + Math.random() * 0.1 - 0.05;
-    const close = open + Math.random() * 0.1 - 0.05;
-    const high = Math.max(open, close) + Math.random() * 0.05;
-    const low = Math.min(open, close) - Math.random() * 0.05;
-    data.x.push(time);
-    data.open.push(open);
-    data.high.push(high);
-    data.low.push(low);
-    data.close.push(close);
-    basePrice = close;
+async function fetchChartData(timeframe) {
+  let days, interval;
+  switch (timeframe) {
+    case '1h': days = 1; interval = 'hourly'; break; // CoinGecko doesn't support 1h directly, using 1 day with hourly
+    case '24h': days = 1; interval = 'hourly'; break;
+    case '1m': days = 30; interval = 'daily'; break;
   }
-  return data;
+  try {
+    const response = await fetch(`https://api.coingecko.com/api/v3/coins/pi-network/market_chart?vs_currency=usd&days=${days}&interval=${interval}`);
+    const data = await response.json();
+    return data.prices.map(([timestamp, price]) => ({
+      x: new Date(timestamp),
+      y: price
+    }));
+  } catch (error) {
+    console.error('Error fetching chart data:', error);
+    return [];
+  }
 }
 
-function updateChart(timeframe) {
-  const data = generateMockData(timeframe);
-  const trace = {
-    x: data.x,
-    open: data.open,
-    high: data.high,
-    low: data.low,
-    close: data.close,
-    type: 'candlestick',
-    increasing: { line: { color: '#00cc00' } }, // Green for up
-    decreasing: { line: { color: '#ff0000' } }  // Red for down
-  };
+async function updateChart(timeframe) {
+  const data = await fetchChartData(timeframe);
+  if (chart) chart.destroy();
 
-  const layout = {
-    title: 'Pi Network Price (USD)',
-    xaxis: {
-      type: 'date',
-      range: [data.x[0], data.x[data.x.length - 1]],
-      rangeslider: { visible: false }
+  chart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      datasets: [{
+        label: 'Pi Network Price (USD)',
+        data: data,
+        borderColor: '#ff6f61',
+        backgroundColor: 'rgba(255, 111, 97, 0.2)',
+        fill: true,
+        tension: 0.1
+      }]
     },
-    yaxis: { title: 'Price (USD)' },
-    height: 400,
-    margin: { t: 50, b: 50, l: 50, r: 50 }
-  };
-
-  Plotly.newPlot('price-chart', [trace], layout);
+    options: {
+      scales: {
+        x: {
+          type: 'time',
+          time: {
+            unit: timeframe === '1h' ? 'minute' : timeframe === '24h' ? 'hour' : 'day'
+          },
+          title: { display: true, text: 'Time' }
+        },
+        y: {
+          title: { display: true, text: 'Price (USD)' }
+        }
+      },
+      plugins: {
+        legend: { display: true }
+      }
+    }
+  });
 }
 
 // Toggle button functionality
