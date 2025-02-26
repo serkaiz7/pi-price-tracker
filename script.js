@@ -137,19 +137,13 @@ window.addEventListener('click', (event) => {
   }
 });
 
-// Line Graph Setup with Chart.js using CoinGecko historical data
+// Line Graph Setup with Chart.js for 1 Month
 const ctx = document.getElementById('price-chart').getContext('2d');
 let chart;
 
-async function fetchChartData(timeframe) {
-  let days, interval;
-  switch (timeframe) {
-    case '1h': days = 1; interval = 'hourly'; break; // CoinGecko doesn't support 1h directly, using 1 day with hourly
-    case '24h': days = 1; interval = 'hourly'; break;
-    case '1m': days = 30; interval = 'daily'; break;
-  }
+async function fetchChartData() {
   try {
-    const response = await fetch(`https://api.coingecko.com/api/v3/coins/pi-network/market_chart?vs_currency=usd&days=${days}&interval=${interval}`);
+    const response = await fetch('https://api.coingecko.com/api/v3/coins/pi-network/market_chart?vs_currency=usd&days=30&interval=daily');
     const data = await response.json();
     return data.prices.map(([timestamp, price]) => ({
       x: new Date(timestamp),
@@ -161,15 +155,15 @@ async function fetchChartData(timeframe) {
   }
 }
 
-async function updateChart(timeframe) {
-  const data = await fetchChartData(timeframe);
+async function updateChart() {
+  const data = await fetchChartData();
   if (chart) chart.destroy();
 
   chart = new Chart(ctx, {
     type: 'line',
     data: {
       datasets: [{
-        label: 'Pi Network Price (USD)',
+        label: 'Pi Network Price (USD) - 1 Month',
         data: data,
         borderColor: '#ff6f61',
         backgroundColor: 'rgba(255, 111, 97, 0.2)',
@@ -181,10 +175,8 @@ async function updateChart(timeframe) {
       scales: {
         x: {
           type: 'time',
-          time: {
-            unit: timeframe === '1h' ? 'minute' : timeframe === '24h' ? 'hour' : 'day'
-          },
-          title: { display: true, text: 'Time' }
+          time: { unit: 'day' },
+          title: { display: true, text: 'Date' }
         },
         y: {
           title: { display: true, text: 'Price (USD)' }
@@ -197,25 +189,5 @@ async function updateChart(timeframe) {
   });
 }
 
-// Toggle button functionality
-const buttons = {
-  '1h': document.getElementById('one-hour-btn'),
-  '24h': document.getElementById('one-day-btn'),
-  '1m': document.getElementById('one-month-btn')
-};
-
-function setActiveButton(timeframe) {
-  Object.values(buttons).forEach(btn => btn.classList.remove('active'));
-  buttons[timeframe].classList.add('active');
-}
-
-Object.keys(buttons).forEach(timeframe => {
-  buttons[timeframe].addEventListener('click', () => {
-    setActiveButton(timeframe);
-    updateChart(timeframe);
-  });
-});
-
 // Initial chart load
-updateChart('1h');
-setActiveButton('1h');
+updateChart();
