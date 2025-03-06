@@ -133,6 +133,26 @@ header {
   height: 400px;
 }
 
+/* Content Section Styles */
+.content-section {
+  max-width: 800px;
+  margin: 30px auto;
+  padding: 0 20px;
+  text-align: left;
+}
+
+.content-section h2 {
+  font-size: 28px;
+  margin-bottom: 15px;
+  color: #ff6f61;
+}
+
+.content-section p {
+  font-size: 16px;
+  line-height: 1.6;
+  margin-bottom: 15px;
+}
+
 /* Donation Section Styles */
 .donation {
   text-align: center;
@@ -286,6 +306,9 @@ header {
     width: 120px;
   }
   .chart-container {
+    padding: 0 10px;
+  }
+  .content-section {
     padding: 0 10px;
   }
 }
