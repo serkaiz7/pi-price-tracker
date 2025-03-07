@@ -3,20 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Picoin Price Tracker</title>
+  <title>Pi Network Price Analytics</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <link rel="stylesheet" href="styles.css">
   <!-- Chart.js -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
-  <script async custom-element="amp-ad" src="https://cdn.ampproject.org/v0/amp-ad-0.1.js"></script>
 </head>
 <body>
   <!-- Header with Logo and Dark Mode Toggle -->
   <header>
-    <div class="logo">
-      <img src="pi-logo.png" alt="Picoin Price">
-      <span>Picoin Price</span>
+    <div class="logo-container">
+      <img src="pi-logo.png" alt="Pi Network Analytics" class="logo">
+      <h1 class="site-title">Pi Network Price Analytics</h1>
     </div>
     <button class="dark-mode-toggle">
       <i class="fas fa-moon moon"></i>
@@ -24,7 +23,7 @@
     </button>
   </header>
 
-  <!-- Main Price Tracker Section -->
+  <!-- Main Content Section -->
   <main>
     <div class="price-tracker">
       <label for="pi-input">Number of Pi:</label>
@@ -48,32 +47,44 @@
     <div class="chart-container">
       <canvas id="price-chart"></canvas>
     </div>
-    <!-- New Content Section About Pi Network -->
+    <!-- Content Section About Pi Network -->
     <section class="content-section">
-      <h2>What is Pi Network?</h2>
-      <p>Pi Network is a revolutionary cryptocurrency and developer platform designed to make digital currency accessible to everyone. Launched in 2019 by a team of Stanford PhDs, Pi Network allows users to mine Pi coins directly from their mobile devices without the need for energy-intensive hardware, making it environmentally friendly and inclusive.</p>
-      <p>The core mission of Pi Network is to build a decentralized ecosystem where users can transact, develop applications, and participate in a global digital economy. Unlike traditional cryptocurrencies like Bitcoin, which require significant computational power, Pi Network uses a consensus algorithm based on the Stellar Consensus Protocol (SCP), enabling lightweight mining through a mobile app.</p>
-      <p>Since its inception, Pi Network has grown to over 35 million users worldwide, known as Pioneers. The project is currently in its enclosed mainnet phase (as of early 2025), where users can prepare for the open mainnet launch by completing KYC and migrating their mined Pi. Pi Network aims to create real-world utility through its ecosystem, including peer-to-peer transactions, marketplace apps, and developer tools.</p>
-      <p>Stay updated with Pi Network’s price trends using our tracker above, and consider supporting the project by donating Pi via the QR code below.</p>
+      <h2>About Pi Network</h2>
+      <p>Pi Network is a pioneering cryptocurrency and developer platform launched in 2019 by a team of Stanford PhDs. Designed to democratize digital currency, it enables users to mine Pi coins via a mobile app, eliminating the need for energy-intensive hardware. This eco-friendly approach has attracted over 35 million users worldwide, known as Pioneers.</p>
+      <p>The platform leverages the Stellar Consensus Protocol (SCP) to create a decentralized ecosystem for transactions, app development, and a global digital economy. Currently in its enclosed mainnet phase (as of early 2025), Pi Network is preparing for an open mainnet launch, requiring users to complete KYC and migrate their mined Pi.</p>
+      <p>Pi Network’s vision includes real-world utility through peer-to-peer transactions, marketplace applications, and developer tools, positioning it as a leader in accessible blockchain technology. Track its price trends above and support the ecosystem below.</p>
+    </section>
+    <!-- Latest News and Updates Section (Ad-Style Panning) -->
+    <section class="news-updates">
+      <h2>Latest News and Updates</h2>
+      <div class="news-marquee">
+        <div class="news-item">
+          <img src="news1.jpg" alt="News 1" class="news-image">
+          <span class="news-text">Pi Network announces open mainnet launch date for Q2 2025!</span>
+        </div>
+        <div class="news-item">
+          <img src="news2.jpg" alt="News 2" class="news-image">
+          <span class="news-text">New marketplace app integrated into Pi ecosystem, boosting utility.</span>
+        </div>
+        <div class="news-item">
+          <img src="news3.jpg" alt="News 3" class="news-image">
+          <span class="news-text">Pi Network reaches 40 million users milestone!</span>
+        </div>
+      </div>
     </section>
   </main>
 
   <!-- Donation Section -->
   <div class="donation">
-    <h2 class="donate-text">Donate Pi</h2>
+    <h2 class="donate-text">Support Pi Network</h2>
     <img src="pi-qr-code.png" alt="Pi Donation QR Code" class="qr-code">
     <p class="address">Pi Wallet Address: GBYPYEILZZUDUEC5MWI4NWU6VEMZDWYJXY2QZBG4AYEZNG2L7J3OS2C7</p>
   </div>
 
-  <!-- Google Ads Area (Moved Below Content) -->
-  <amp-ad width="100vw" height="320"
-     type="adsense"
-     data-ad-client="ca-pub-3089886074644811"
-     data-ad-slot="8552195861"
-     data-auto-format="rspv"
-     data-full-width="">
-  <div overflow=""></div>
-</amp-ad>
+  <!-- Google Ads Area -->
+  <div class="google-ads">
+    <!-- Insert Google Ads code here -->
+  </div>
 
   <!-- Footer with Modals -->
   <footer>
