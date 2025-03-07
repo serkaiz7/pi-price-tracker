@@ -265,7 +265,7 @@ body.dark-mode .logo {
   display: inline-flex;
   align-items: center;
   margin-right: 50px;
-  animation: pan 20s linear infinite;
+  animation: pan 30s linear infinite; /* Increased duration from 20s to 30s */
 }
 
 .news-image {
@@ -361,7 +361,7 @@ body.dark-mode .logo {
   margin: 10% auto;
   text-align: center;
   width: 80%;
-  max-width: 400px; /* Increased for scannability */
+  max-width: 400px;
   background: var(--bg-color);
   padding: 25px;
   border-radius: 10px;
@@ -371,7 +371,7 @@ body.dark-mode .logo {
 }
 
 .enlarged-qr {
-  width: 350px; /* Increased size for scannability */
+  width: 350px;
   height: 350px;
   border: 3px solid var(--accent-color);
   border-radius: 10px;
@@ -452,7 +452,7 @@ body.dark-mode .logo {
     font-size: 24px;
   }
   .enlarged-qr {
-    width: 300px; /* Slightly smaller for mobile */
+    width: 300px;
     height: 300px;
   }
   .qr-modal-content {
