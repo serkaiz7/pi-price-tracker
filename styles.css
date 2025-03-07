@@ -1,21 +1,22 @@
 /* General Styles */
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
   margin: 0;
   padding: 0;
-  background-color: var(--bg-color);
-  color: var(--text-color);
+  background-color: #f4f4f9; /* Light gray background for business look */
+  color: #333333;
   transition: background-color 0.3s, color 0.3s;
+  line-height: 1.6;
 }
 
 /* CSS Variables for Themes */
 :root {
-  --bg-color: #ffffff;
-  --text-color: #000000;
+  --bg-color: #f4f4f9;
+  --text-color: #333333;
 }
 
 body.dark-mode {
-  --bg-color: #333333;
+  --bg-color: #1a1a1a;
   --text-color: #ffffff;
 }
 
@@ -24,54 +25,74 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 20px;
-  background-color: var(--bg-color);
+  padding: 20px 40px;
+  background-color: #ffffff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for elevation */
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
 }
 
 .logo {
-  display: flex;
-  align-items: center;
-  cursor: pointer;
+  width: 100px;
+  height: auto;
+  margin-right: 20px;
+  transition: transform 0.3s ease;
 }
 
-.logo img {
-  width: 80px;
-  height: 30px;
-  object-fit: contain;
-  margin-right: 10px;
+.logo:hover {
+  transform: scale(1.05); /* Slight zoom effect on hover */
 }
 
-.logo span {
-  font-size: 24px;
-  font-weight: bold;
+.site-title {
+  font-size: 32px;
+  font-weight: 700;
+  color: #ff6f61;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 .dark-mode-toggle {
   background: none;
   border: none;
   cursor: pointer;
-}
-
-.dark-mode-toggle i {
   font-size: 24px;
+  color: var(--text-color);
 }
 
 /* Price Tracker Styles */
 .price-tracker {
   text-align: center;
   margin: 50px auto;
+  max-width: 800px;
+  padding: 20px;
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .price-tracker label {
   font-size: 18px;
+  font-weight: 600;
 }
 
 .price-tracker input[type="number"] {
   width: 100px;
-  padding: 5px;
+  padding: 8px;
   font-size: 16px;
-  border: 1px solid var(--text-color);
+  border: 1px solid #cccccc;
   border-radius: 4px;
+  transition: border-color 0.3s;
+}
+
+.price-tracker input[type="number"]:focus {
+  border-color: #ff6f61;
+  outline: none;
 }
 
 .output {
@@ -97,11 +118,17 @@ header {
 }
 
 #currency-search {
-  padding: 5px;
+  padding: 8px;
   width: 150px;
   font-size: 16px;
-  border: 1px solid var(--text-color);
+  border: 1px solid #cccccc;
   border-radius: 4px;
+  transition: border-color 0.3s;
+}
+
+#currency-search:focus {
+  border-color: #ff6f61;
+  outline: none;
 }
 
 .controls {
@@ -111,14 +138,16 @@ header {
 
 #up-btn, #down-btn {
   background: none;
-  border: 1px solid var(--text-color);
+  border: 1px solid #cccccc;
   cursor: pointer;
   font-size: 16px;
-  padding: 2px 8px;
+  padding: 5px 10px;
+  border-radius: 4px;
+  transition: background-color 0.3s;
 }
 
 #up-btn:hover, #down-btn:hover {
-  background-color: #ddd;
+  background-color: #e0e0e0;
 }
 
 /* Chart Styles */
@@ -131,13 +160,19 @@ header {
 #price-chart {
   width: 100%;
   height: 400px;
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 /* Content Section Styles */
 .content-section {
   max-width: 800px;
   margin: 30px auto;
-  padding: 0 20px;
+  padding: 20px;
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   text-align: left;
 }
 
@@ -145,6 +180,7 @@ header {
   font-size: 28px;
   margin-bottom: 15px;
   color: #ff6f61;
+  font-weight: 700;
 }
 
 .content-section p {
@@ -153,58 +189,100 @@ header {
   margin-bottom: 15px;
 }
 
+/* News Updates Section (Ad-Style Panning) */
+.news-updates {
+  max-width: 800px;
+  margin: 30px auto;
+  padding: 20px;
+  background: #f8f8f8;
+  border: 1px solid #cccccc;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.news-updates h2 {
+  font-size: 24px;
+  font-weight: 700;
+  color: #333333;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.news-marquee {
+  overflow: hidden;
+  white-space: nowrap;
+  width: 100%;
+}
+
+.news-item {
+  display: inline-flex;
+  align-items: center;
+  margin-right: 40px;
+  animation: pan 20s linear infinite;
+}
+
+.news-image {
+  width: 100px;
+  height: 75px;
+  object-fit: cover;
+  margin-right: 15px;
+  border-radius: 4px;
+}
+
+.news-text {
+  font-size: 16px;
+  color: #333333;
+  white-space: nowrap;
+}
+
+@keyframes pan {
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
+}
+
 /* Donation Section Styles */
 .donation {
   text-align: center;
-  margin: 20px 0;
+  margin: 30px 0;
+  padding: 20px;
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .donate-text {
   font-size: 28px;
-  font-weight: bold;
+  font-weight: 700;
   color: #ff6f61;
-  text-shadow: 0 0 10px #ff6f61, 0 0 20px #ff6f61, 0 0 30px #ff6f61;
-  position: relative;
-  display: inline-block;
   margin-bottom: 20px;
 }
 
-.donate-text::after {
-  content: "↓";
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  top: 100%;
-  font-size: 24px;
-  color: #ff6f61;
-  animation: arrowPulse 1.5s infinite;
-}
-
 .qr-code {
-  width: 75px;
-  height: 75px;
+  width: 100px;
+  height: 100px;
   margin: 10px auto;
   display: block;
   cursor: pointer;
+  border: 2px solid #ff6f61;
+  border-radius: 8px;
 }
 
 .address {
   font-size: 16px;
   word-wrap: break-word;
   color: var(--text-color);
-}
-
-/* Arrow Animation */
-@keyframes arrowPulse {
-  0% { transform: translateX(-50%) translateY(0); opacity: 1; }
-  50% { transform: translateX(-50%) translateY(10px); opacity: 0.5; }
-  100% { transform: translateX(-50%) translateY(0); opacity: 1; }
+  margin-top: 10px;
 }
 
 /* Google Ads Styles */
 .google-ads {
   text-align: center;
-  margin: 20px 0;
+  margin: 30px 0;
+  padding: 20px;
+  background: #f8f8f8;
+  border: 1px solid #cccccc;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 /* Modal Styles (Pi Info) */
@@ -226,6 +304,8 @@ header {
   padding: 20px;
   border: 1px solid #888;
   width: 80%;
+  max-width: 500px;
+  border-radius: 8px;
   opacity: 0;
   transition: opacity 0.5s;
 }
@@ -251,11 +331,16 @@ header {
   text-align: center;
   width: 80%;
   max-width: 300px;
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
 }
 
 .enlarged-qr {
-  width: 300px;
-  height: 300px;
+  width: 250px;
+  height: 250px;
+  border: 2px solid #ff6f61;
+  border-radius: 8px;
 }
 
 .qr-close {
@@ -265,11 +350,15 @@ header {
   cursor: pointer;
   display: block;
   margin-bottom: 10px;
+  background: #333333;
+  padding: 5px 10px;
+  border-radius: 4px;
 }
 
 .qr-close:hover,
 .qr-close:focus {
   color: #ccc;
+  background: #555555;
 }
 
 /* Close Button (Pi Modal) */
@@ -279,36 +368,46 @@ header {
   font-size: 28px;
   font-weight: bold;
   cursor: pointer;
+  background: #333333;
+  padding: 5px 10px;
+  border-radius: 4px;
 }
 
 .close:hover,
 .close:focus {
-  color: black;
-  text-decoration: none;
+  color: #fff;
+  background: #555555;
 }
 
 /* Responsive Design */
 @media (max-width: 600px) {
+  header {
+    padding: 15px 20px;
+  }
+  .logo {
+    width: 80px;
+  }
+  .site-title {
+    font-size: 24px;
+  }
   .price-tracker input[type="number"] {
     width: 80%;
   }
   .qr-code {
-    width: 60px;
-    height: 60px;
+    width: 80px;
+    height: 80px;
   }
   .donate-text {
     font-size: 24px;
   }
-  .donate-text::after {
-    font-size: 20px;
-  }
   #currency-search {
     width: 120px;
   }
-  .chart-container {
+  .chart-container, .content-section, .news-updates {
     padding: 0 10px;
   }
-  .content-section {
-    padding: 0 10px;
+  .news-image {
+    width: 80px;
+    height: 60px;
   }
 }
