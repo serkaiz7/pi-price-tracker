@@ -85,14 +85,20 @@ document.getElementById('down-btn').addEventListener('click', () => {
 const toggleButton = document.querySelector('.dark-mode-toggle');
 const moonIcon = document.querySelector('.moon');
 const sunIcon = document.querySelector('.sun');
+const darkText = document.querySelector('.mode-text');
+const lightText = document.querySelector('.light-text');
 toggleButton.addEventListener('click', () => {
   document.body.classList.toggle('dark-mode');
   if (document.body.classList.contains('dark-mode')) {
     moonIcon.style.display = 'none';
     sunIcon.style.display = 'inline';
+    darkText.style.display = 'none';
+    lightText.style.display = 'inline';
   } else {
     moonIcon.style.display = 'inline';
     sunIcon.style.display = 'none';
+    darkText.style.display = 'inline';
+    lightText.style.display = 'none';
   }
   // Force style recalculation
   document.body.style.display = 'none';
@@ -120,14 +126,25 @@ window.addEventListener('click', (event) => {
   }
 });
 
-// QR code enlarge on tap
-const qrCode = document.querySelector('.qr-code');
-const qrModal = document.getElementById('qr-modal');
+// QR code modal
+function showQRModal() {
+  const qrModal = document.getElementById('qr-modal');
+  qrModal.style.display = 'block';
+  setTimeout(() => qrModal.classList.add('show'), 10);
+}
+
 const qrCloseBtn = document.querySelector('.qr-close');
-qrCode.addEventListener('click', () => qrModal.style.display = 'block');
-qrCloseBtn.addEventListener('click', () => qrModal.style.display = 'none');
+qrCloseBtn.addEventListener('click', () => {
+  const qrModal = document.getElementById('qr-modal');
+  qrModal.classList.remove('show');
+  setTimeout(() => qrModal.style.display = 'none', 500);
+});
 window.addEventListener('click', (event) => {
-  if (event.target === qrModal) qrModal.style.display = 'none';
+  const qrModal = document.getElementById('qr-modal');
+  if (event.target === qrModal) {
+    qrModal.classList.remove('show');
+    setTimeout(() => qrModal.style.display = 'none', 500);
+  }
 });
 
 // Line Graph Setup with Chart.js
@@ -155,7 +172,7 @@ async function updateChart() {
       datasets: [{
         label: 'Pi Network Price (USD) - 1 Month',
         data: data,
-        borderColor: var(--accent-color), /* Dynamic accent color */
+        borderColor: 'var(--accent-color)',
         backgroundColor: 'rgba(241, 196, 15, 0.2)',
         fill: true,
         tension: 0.1
@@ -163,10 +180,10 @@ async function updateChart() {
     },
     options: {
       scales: {
-        x: { type: 'time', time: { unit: 'day' }, title: { display: true, text: 'Date' } },
-        y: { title: { display: true, text: 'Price (USD)' } }
+        x: { type: 'time', time: { unit: 'day' }, title: { display: true, text: 'Date', color: 'var(--text-color)' } },
+        y: { title: { display: true, text: 'Price (USD)', color: 'var(--text-color)' } }
       },
-      plugins: { legend: { display: true, labels: { color: var(--text-color) } } }
+      plugins: { legend: { display: true, labels: { color: 'var(--text-color)' } } }
     }
   });
 }
