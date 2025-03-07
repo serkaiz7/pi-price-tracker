@@ -3,88 +3,92 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pi Network Price Analytics</title>
+  <title>Pi Network Financial Insights</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <link rel="stylesheet" href="styles.css">
   <!-- Chart.js -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3089886074644811"
-     crossorigin="anonymous"></script>
 </head>
 <body>
   <!-- Header with Logo and Dark Mode Toggle -->
   <header>
-    <div class="logo-container">
-      <img src="pi-logo.png" alt="Pi Network Analytics" class="logo">
-      <h1 class="site-title">Pi Network Price Analytics</h1>
+    <div class="header-content">
+      <img src="pi-logo.png" alt="Pi Network Financial Insights" class="logo">
+      <h1 class="site-title">Pi Network Financial Insights</h1>
+      <button class="dark-mode-toggle">
+        <i class="fas fa-moon moon"></i>
+        <i class="fas fa-sun sun" style="display: none;"></i>
+      </button>
     </div>
-    <button class="dark-mode-toggle">
-      <i class="fas fa-moon moon"></i>
-      <i class="fas fa-sun sun" style="display: none;"></i>
-    </button>
   </header>
 
   <!-- Main Content Section -->
   <main>
-    <div class="price-tracker">
-      <label for="pi-input">Number of Pi:</label>
-      <input type="number" id="pi-input" value="1" min="0" step="0.000001">
-      <div class="output">
-        <span>USD: </span>
-        <input type="number" id="usd-output" value="0.00" step="0.0001" min="0">
-      </div>
-      <div class="currency-selector">
-        <input type="text" id="currency-search" placeholder="Search currency...">
-        <div class="controls">
-          <button id="up-btn">▲</button>
-          <button id="down-btn">▼</button>
+    <section class="price-tracker-section">
+      <div class="price-tracker">
+        <label for="pi-input">Pi Quantity:</label>
+        <input type="number" id="pi-input" value="1" min="0" step="0.000001">
+        <div class="output">
+          <span>USD Value: </span>
+          <input type="number" id="usd-output" value="0.00" step="0.0001" min="0">
+        </div>
+        <div class="currency-selector">
+          <input type="text" id="currency-search" placeholder="Search Currency...">
+          <div class="controls">
+            <button id="up-btn">▲</button>
+            <button id="down-btn">▼</button>
+          </div>
+        </div>
+        <div class="output selected">
+          <span id="selected-currency">PHP: </span><span id="selected-output">0.00</span>
         </div>
       </div>
-      <div class="output selected">
-        <span id="selected-currency">PHP: </span><span id="selected-output">0.00</span>
-      </div>
-    </div>
+    </section>
     <!-- Line Graph Section (1 Month Only) -->
-    <div class="chart-container">
-      <canvas id="price-chart"></canvas>
-    </div>
+    <section class="chart-section">
+      <div class="chart-container">
+        <canvas id="price-chart"></canvas>
+      </div>
+    </section>
     <!-- Content Section About Pi Network -->
     <section class="content-section">
       <h2>About Pi Network</h2>
-      <p>Pi Network is a pioneering cryptocurrency and developer platform launched in 2019 by a team of Stanford PhDs. Designed to democratize digital currency, it enables users to mine Pi coins via a mobile app, eliminating the need for energy-intensive hardware. This eco-friendly approach has attracted over 35 million users worldwide, known as Pioneers.</p>
-      <p>The platform leverages the Stellar Consensus Protocol (SCP) to create a decentralized ecosystem for transactions, app development, and a global digital economy. Currently in its enclosed mainnet phase (as of early 2025), Pi Network is preparing for an open mainnet launch, requiring users to complete KYC and migrate their mined Pi.</p>
-      <p>Pi Network’s vision includes real-world utility through peer-to-peer transactions, marketplace applications, and developer tools, positioning it as a leader in accessible blockchain technology. Track its price trends above and support the ecosystem below.</p>
+      <p>Pi Network, launched in 2019 by Stanford PhDs, is a transformative cryptocurrency platform designed to democratize digital currency access. With over 35 million users globally, it enables mobile-based mining through an eco-friendly consensus mechanism based on the Stellar Consensus Protocol (SCP), eliminating the need for energy-intensive hardware.</p>
+      <p>Currently in its enclosed mainnet phase (as of March 2025), Pi Network is preparing for an open mainnet launch, requiring users to complete KYC and migrate their mined Pi. The platform aims to foster a decentralized ecosystem with real-world applications, including peer-to-peer transactions, marketplace integrations, and developer tools.</p>
+      <p>Stay informed with our real-time price analytics and explore opportunities to engage with this innovative blockchain ecosystem.</p>
     </section>
-    <!-- Latest News and Updates Section (Ad-Style Panning) -->
-    <section class="news-updates">
-      <h2>Latest News and Updates</h2>
+    <!-- Latest News and Updates Section -->
+    <section class="news-section">
+      <h2>Latest News & Updates</h2>
       <div class="news-marquee">
         <div class="news-item">
           <img src="news1.jpg" alt="News 1" class="news-image">
-          <span class="news-text">Pi Network announces open mainnet launch date for Q2 2025!</span>
+          <span class="news-text">Pi Network sets Q2 2025 for open mainnet launch!</span>
         </div>
         <div class="news-item">
           <img src="news2.jpg" alt="News 2" class="news-image">
-          <span class="news-text">New marketplace app integrated into Pi ecosystem, boosting utility.</span>
+          <span class="news-text">New marketplace app enhances Pi ecosystem utility.</span>
         </div>
         <div class="news-item">
           <img src="news3.jpg" alt="News 3" class="news-image">
-          <span class="news-text">Pi Network reaches 40 million users milestone!</span>
+          <span class="news-text">Pi Network surpasses 40 million users globally!</span>
         </div>
       </div>
     </section>
   </main>
 
   <!-- Donation Section -->
-  <div class="donation">
-    <h2 class="donate-text">Support Pi Network</h2>
-    <img src="pi-qr-code.png" alt="Pi Donation QR Code" class="qr-code">
-    <p class="address">Pi Wallet Address: GBYPYEILZZUDUEC5MWI4NWU6VEMZDWYJXY2QZBG4AYEZNG2L7J3OS2C7</p>
-  </div>
+  <section class="donation-section">
+    <div class="donation">
+      <h2 class="donate-title">Support Pi Network</h2>
+      <img src="pi-qr-code.png" alt="Pi Donation QR Code" class="qr-code">
+      <p class="address">Wallet Address: GBYPYEILZZUDUEC5MWI4NWU6VEMZDWYJXY2QZBG4AYEZNG2L7J3OS2C7</p>
+    </div>
+  </section>
 
   <!-- Google Ads Area -->
-  <div class="google-ads">
+  <div class="advertisement">
     <!-- Insert Google Ads code here -->
   </div>
 
@@ -93,7 +97,7 @@
     <div id="pi-modal" class="modal">
       <div class="modal-content">
         <span class="close">×</span>
-        <p>Pi Network is a social cryptocurrency, developer platform, and ecosystem designed for widespread accessibility and real-world utility. It enables users to mine and transact Pi using a mobile-friendly interface while supporting applications built within its blockchain ecosystem.</p>
+        <p>Pi Network is a pioneering cryptocurrency and ecosystem designed for accessibility and utility, enabling mobile mining and blockchain app development.</p>
       </div>
     </div>
     <div id="qr-modal" class="modal">
