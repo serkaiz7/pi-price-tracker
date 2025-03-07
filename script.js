@@ -107,25 +107,6 @@ toggleButton.addEventListener('click', () => {
   }, 10);
 });
 
-// Pi info modal
-const logo = document.querySelector('.logo');
-const piModal = document.getElementById('pi-modal');
-const closeBtn = document.querySelector('.close');
-logo.addEventListener('click', () => {
-  piModal.style.display = 'block';
-  setTimeout(() => piModal.classList.add('show'), 10);
-});
-closeBtn.addEventListener('click', () => {
-  piModal.classList.remove('show');
-  setTimeout(() => piModal.style.display = 'none', 500);
-});
-window.addEventListener('click', (event) => {
-  if (event.target === piModal) {
-    piModal.classList.remove('show');
-    setTimeout(() => piModal.style.display = 'none', 500);
-  }
-});
-
 // QR code modal
 function showQRModal() {
   const qrModal = document.getElementById('qr-modal');
