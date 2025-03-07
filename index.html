@@ -13,15 +13,19 @@
      crossorigin="anonymous"></script>
 </head>
 <body>
-  <!-- Header with Logo and Dark Mode Toggle -->
+  <!-- Header with Logo, Title, and Dark Mode Toggle -->
   <header>
+    <div class="dark-mode-container">
+      <button class="dark-mode-toggle">
+        <i class="fas fa-moon moon"></i>
+        <span class="mode-text">Dark</span>
+        <i class="fas fa-sun sun" style="display: none;"></i>
+        <span class="mode-text light-text" style="display: none;">Light</span>
+      </button>
+    </div>
     <div class="header-content">
       <img src="pi-logo.png" alt="Pi Network Financial Insights" class="logo">
       <h1 class="site-title">Pi Network Financial Insights</h1>
-      <button class="dark-mode-toggle">
-        <i class="fas fa-moon moon"></i>
-        <i class="fas fa-sun sun" style="display: none;"></i>
-      </button>
     </div>
   </header>
 
@@ -84,7 +88,7 @@
   <section class="donation-section">
     <div class="donation">
       <h2 class="donate-title">Support Pi Network</h2>
-      <img src="pi-qr-code.png" alt="Pi Donation QR Code" class="qr-code">
+      <img src="pi-qr-code.png" alt="Pi Donation QR Code" class="qr-code" onclick="showQRModal()">
       <p class="address">Wallet Address: GBYPYEILZZUDUEC5MWI4NWU6VEMZDWYJXY2QZBG4AYEZNG2L7J3OS2C7</p>
     </div>
   </section>
