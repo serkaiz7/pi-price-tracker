@@ -3,8 +3,8 @@ body {
   font-family: 'Helvetica Neue', Arial, sans-serif;
   margin: 0;
   padding: 0;
-  background-color: #f4f4f9; /* Light gray background for business look */
-  color: #333333;
+  background-color: var(--bg-color); /* Use variable */
+  color: var(--text-color); /* Use variable */
   transition: background-color 0.3s, color 0.3s;
   line-height: 1.6;
 }
@@ -26,8 +26,8 @@ header {
   justify-content: space-between;
   align-items: center;
   padding: 20px 40px;
-  background-color: #ffffff;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for elevation */
+  background-color: #ffffff; /* Fixed color for header to avoid dark mode conflict */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   position: sticky;
   top: 0;
   z-index: 1000;
@@ -43,10 +43,11 @@ header {
   height: auto;
   margin-right: 20px;
   transition: transform 0.3s ease;
+  filter: brightness(0) saturate(100%) invert(0); /* Adjust for dark mode */
 }
 
 .logo:hover {
-  transform: scale(1.05); /* Slight zoom effect on hover */
+  transform: scale(1.05);
 }
 
 .site-title {
@@ -71,7 +72,7 @@ header {
   margin: 50px auto;
   max-width: 800px;
   padding: 20px;
-  background: #ffffff;
+  background: var(--bg-color); /* Use variable */
   border-radius: 8px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
@@ -79,6 +80,7 @@ header {
 .price-tracker label {
   font-size: 18px;
   font-weight: 600;
+  color: var(--text-color); /* Use variable */
 }
 
 .price-tracker input[type="number"] {
@@ -87,6 +89,8 @@ header {
   font-size: 16px;
   border: 1px solid #cccccc;
   border-radius: 4px;
+  background: var(--bg-color); /* Use variable */
+  color: var(--text-color); /* Use variable */
   transition: border-color 0.3s;
 }
 
@@ -106,6 +110,12 @@ header {
 
 .output input[type="number"] {
   width: 120px;
+  background: var(--bg-color); /* Use variable */
+  color: var(--text-color); /* Use variable */
+}
+
+.output span {
+  color: var(--text-color); /* Use variable */
 }
 
 /* Currency Selector Styles */
@@ -123,6 +133,8 @@ header {
   font-size: 16px;
   border: 1px solid #cccccc;
   border-radius: 4px;
+  background: var(--bg-color); /* Use variable */
+  color: var(--text-color); /* Use variable */
   transition: border-color 0.3s;
 }
 
@@ -143,11 +155,12 @@ header {
   font-size: 16px;
   padding: 5px 10px;
   border-radius: 4px;
+  color: var(--text-color); /* Use variable */
   transition: background-color 0.3s;
 }
 
 #up-btn:hover, #down-btn:hover {
-  background-color: #e0e0e0;
+  background-color: rgba(0, 0, 0, 0.1);
 }
 
 /* Chart Styles */
@@ -160,7 +173,7 @@ header {
 #price-chart {
   width: 100%;
   height: 400px;
-  background: #ffffff;
+  background: var(--bg-color); /* Use variable */
   border-radius: 8px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
@@ -170,7 +183,7 @@ header {
   max-width: 800px;
   margin: 30px auto;
   padding: 20px;
-  background: #ffffff;
+  background: var(--bg-color); /* Use variable */
   border-radius: 8px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   text-align: left;
@@ -187,6 +200,7 @@ header {
   font-size: 16px;
   line-height: 1.6;
   margin-bottom: 15px;
+  color: var(--text-color); /* Use variable */
 }
 
 /* News Updates Section (Ad-Style Panning) */
@@ -194,7 +208,7 @@ header {
   max-width: 800px;
   margin: 30px auto;
   padding: 20px;
-  background: #f8f8f8;
+  background: var(--bg-color); /* Use variable */
   border: 1px solid #cccccc;
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -203,7 +217,7 @@ header {
 .news-updates h2 {
   font-size: 24px;
   font-weight: 700;
-  color: #333333;
+  color: var(--text-color); /* Use variable */
   margin-bottom: 15px;
   text-align: center;
 }
@@ -231,7 +245,7 @@ header {
 
 .news-text {
   font-size: 16px;
-  color: #333333;
+  color: var(--text-color); /* Use variable */
   white-space: nowrap;
 }
 
@@ -245,7 +259,7 @@ header {
   text-align: center;
   margin: 30px 0;
   padding: 20px;
-  background: #ffffff;
+  background: var(--bg-color); /* Use variable */
   border-radius: 8px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
@@ -270,7 +284,7 @@ header {
 .address {
   font-size: 16px;
   word-wrap: break-word;
-  color: var(--text-color);
+  color: var(--text-color); /* Use variable */
   margin-top: 10px;
 }
 
@@ -279,7 +293,7 @@ header {
   text-align: center;
   margin: 30px 0;
   padding: 20px;
-  background: #f8f8f8;
+  background: var(--bg-color); /* Use variable */
   border: 1px solid #cccccc;
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -299,7 +313,7 @@ header {
 }
 
 .modal-content {
-  background-color: var(--bg-color);
+  background-color: var(--bg-color); /* Use variable */
   margin: 15% auto;
   padding: 20px;
   border: 1px solid #888;
@@ -308,6 +322,7 @@ header {
   border-radius: 8px;
   opacity: 0;
   transition: opacity 0.5s;
+  color: var(--text-color); /* Use variable */
 }
 
 .modal.show .modal-content {
@@ -331,9 +346,10 @@ header {
   text-align: center;
   width: 80%;
   max-width: 300px;
-  background: #ffffff;
+  background: var(--bg-color); /* Use variable */
   padding: 20px;
   border-radius: 8px;
+  color: var(--text-color); /* Use variable */
 }
 
 .enlarged-qr {
@@ -353,6 +369,7 @@ header {
   background: #333333;
   padding: 5px 10px;
   border-radius: 4px;
+  color: var(--text-color); /* Use variable */
 }
 
 .qr-close:hover,
@@ -371,6 +388,7 @@ header {
   background: #333333;
   padding: 5px 10px;
   border-radius: 4px;
+  color: var(--text-color); /* Use variable */
 }
 
 .close:hover,
