@@ -265,7 +265,7 @@ body.dark-mode .logo {
   display: inline-flex;
   align-items: center;
   margin-right: 50px;
-  animation: pan 30s linear infinite; /* Increased duration from 20s to 30s */
+  animation: pan 30s linear infinite;
 }
 
 .news-image {
@@ -284,8 +284,8 @@ body.dark-mode .logo {
 }
 
 @keyframes pan {
-  0% { transform: translateX(100%); }
-  100% { transform: translateX(-100%); }
+  0% { transform: translateX(100%); } /* Start from the right */
+  100% { transform: translateX(-100%); } /* Exit to the left */
 }
 
 /* Donation Section */
