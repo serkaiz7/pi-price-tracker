@@ -255,37 +255,45 @@ body.dark-mode .logo {
   text-align: center;
 }
 
-.news-marquee {
+.news-container {
   overflow: hidden;
-  white-space: nowrap;
   width: 100%;
+  position: relative;
 }
 
 .news-item {
   display: inline-flex;
   align-items: center;
-  margin-right: 50px;
-  animation: pan 30s linear infinite;
+  margin-right: 30px;
+  animation: pan 30s linear infinite; /* Continuous right-to-left panning */
 }
 
 .news-image {
   width: 120px;
   height: 90px;
   object-fit: cover;
-  margin-right: 20px;
-  border-radius: 5px;
+  border-radius: 5px 0 0 5px;
   border: 2px solid var(--border-color);
 }
 
+.news-box {
+  background: var(--bg-color);
+  padding: 10px 15px;
+  border: 2px solid var(--border-color);
+  border-left: none;
+  border-radius: 0 5px 5px 0;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
 .news-text {
-  font-size: 16px;
+  font-size: 18px; /* Increased from 16px for bigger text */
   color: var(--text-color);
   white-space: nowrap;
 }
 
 @keyframes pan {
-  0% { transform: translateX(100%); } /* Start from the right */
-  100% { transform: translateX(-100%); } /* Exit to the left */
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
 }
 
 /* Donation Section */
@@ -443,6 +451,12 @@ body.dark-mode .logo {
   .news-image {
     width: 90px;
     height: 70px;
+  }
+  .news-box {
+    padding: 8px 12px;
+  }
+  .news-text {
+    font-size: 16px; /* Slightly reduced for mobile readability */
   }
   .qr-code {
     width: 100px;
