@@ -1,4 +1,4 @@
-// Currency list with codes (includes THB and VND)
+// Currency list with codes
 const currencies = [
   { code: "PHP", name: "Philippine Peso" },
   { code: "KRW", name: "South Korean Won" },
@@ -51,7 +51,7 @@ async function updatePrices(fromPi = true) {
 
 // Initial price update
 updatePrices();
-setInterval(() => updatePrices(true), 30000);
+setInterval(updatePrices, 30000);
 
 // Event listeners for price inputs
 document.getElementById('pi-input').addEventListener('input', () => updatePrices(true));
@@ -98,31 +98,25 @@ toggleButton.addEventListener('click', () => {
   document.body.style.display = 'none';
   setTimeout(() => {
     document.body.style.display = '';
-  }, 0);
+  }, 10);
 });
 
 // Pi info modal
 const logo = document.querySelector('.logo');
-const modal = document.getElementById('pi-modal');
+const piModal = document.getElementById('pi-modal');
 const closeBtn = document.querySelector('.close');
 logo.addEventListener('click', () => {
-  modal.style.display = 'block';
-  setTimeout(() => {
-    modal.classList.add('show');
-  }, 10);
+  piModal.style.display = 'block';
+  setTimeout(() => piModal.classList.add('show'), 10);
 });
 closeBtn.addEventListener('click', () => {
-  modal.classList.remove('show');
-  setTimeout(() => {
-    modal.style.display = 'none';
-  }, 500);
+  piModal.classList.remove('show');
+  setTimeout(() => piModal.style.display = 'none', 500);
 });
 window.addEventListener('click', (event) => {
-  if (event.target === modal) {
-    modal.classList.remove('show');
-    setTimeout(() => {
-      modal.style.display = 'none';
-    }, 500);
+  if (event.target === piModal) {
+    piModal.classList.remove('show');
+    setTimeout(() => piModal.style.display = 'none', 500);
   }
 });
 
@@ -130,19 +124,13 @@ window.addEventListener('click', (event) => {
 const qrCode = document.querySelector('.qr-code');
 const qrModal = document.getElementById('qr-modal');
 const qrCloseBtn = document.querySelector('.qr-close');
-qrCode.addEventListener('click', () => {
-  qrModal.style.display = 'block';
-});
-qrCloseBtn.addEventListener('click', () => {
-  qrModal.style.display = 'none';
-});
+qrCode.addEventListener('click', () => qrModal.style.display = 'block');
+qrCloseBtn.addEventListener('click', () => qrModal.style.display = 'none');
 window.addEventListener('click', (event) => {
-  if (event.target === qrModal) {
-    qrModal.style.display = 'none';
-  }
+  if (event.target === qrModal) qrModal.style.display = 'none';
 });
 
-// Line Graph Setup with Chart.js for 1 Month
+// Line Graph Setup with Chart.js
 const ctx = document.getElementById('price-chart').getContext('2d');
 let chart;
 
@@ -150,10 +138,7 @@ async function fetchChartData() {
   try {
     const response = await fetch('https://api.coingecko.com/api/v3/coins/pi-network/market_chart?vs_currency=usd&days=30&interval=daily');
     const data = await response.json();
-    return data.prices.map(([timestamp, price]) => ({
-      x: new Date(timestamp),
-      y: price
-    }));
+    return data.prices.map(([timestamp, price]) => ({ x: new Date(timestamp), y: price }));
   } catch (error) {
     console.error('Error fetching chart data:', error);
     return [];
@@ -170,26 +155,18 @@ async function updateChart() {
       datasets: [{
         label: 'Pi Network Price (USD) - 1 Month',
         data: data,
-        borderColor: '#ff6f61',
-        backgroundColor: 'rgba(255, 111, 97, 0.2)',
+        borderColor: var(--accent-color), /* Dynamic accent color */
+        backgroundColor: 'rgba(241, 196, 15, 0.2)',
         fill: true,
         tension: 0.1
       }]
     },
     options: {
       scales: {
-        x: {
-          type: 'time',
-          time: { unit: 'day' },
-          title: { display: true, text: 'Date' }
-        },
-        y: {
-          title: { display: true, text: 'Price (USD)' }
-        }
+        x: { type: 'time', time: { unit: 'day' }, title: { display: true, text: 'Date' } },
+        y: { title: { display: true, text: 'Price (USD)' } }
       },
-      plugins: {
-        legend: { display: true }
-      }
+      plugins: { legend: { display: true, labels: { color: var(--text-color) } } }
     }
   });
 }
