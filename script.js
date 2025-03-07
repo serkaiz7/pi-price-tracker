@@ -94,6 +94,11 @@ toggleButton.addEventListener('click', () => {
     moonIcon.style.display = 'inline';
     sunIcon.style.display = 'none';
   }
+  // Force style recalculation
+  document.body.style.display = 'none';
+  setTimeout(() => {
+    document.body.style.display = '';
+  }, 0);
 });
 
 // Pi info modal
